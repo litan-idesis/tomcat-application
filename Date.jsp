@@ -4,6 +4,6 @@
 </head>
 <body>
     <h1>Hey, This is our web page</h1>
-    out.println("welcome.");
+    <p>This is Daniel and Litan DevOps task</p>
 </body>
 </html>
