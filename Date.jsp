@@ -1,54 +1,71 @@
 <html>
 <head>
-    <title>Interesting JSP</title>
+    <title>Interactive Quiz JSP</title>
     <style>
-        .error {
-            color: red;
+        .question {
+            margin-bottom: 10px;
+        }
+
+        .result {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>Interesting JSP</h1>
+    <h1>Interactive Quiz</h1>
 
-    <%
-        // Handling form submission
-        if (request.getMethod().equalsIgnoreCase("post")) {
-            String userName = request.getParameter("userName");
-
-            // Simple form validation
-            if (userName == null || userName.trim().isEmpty()) {
-    %>
-                <p class="error">Please enter a valid username.</p>
-    <%
-            } else {
-                // Process the form data (e.g., store in a database)
-    %>
-                <p>Welcome, <%= userName %>!</p>
-    <%
-            }
-        }
-    %>
-
-    <!-- Form for user input -->
     <form action="" method="post">
-        Enter your name: <input type="text" name="userName">
-        <input type="submit" value="Submit">
+        <div class="question">
+            <p>1. What is the capital of France?</p>
+            <label><input type="radio" name="q1" value="Paris"> Paris</label>
+            <label><input type="radio" name="q1" value="Berlin"> Berlin</label>
+            <label><input type="radio" name="q1" value="Madrid"> Madrid</label>
+        </div>
+
+        <div class="question">
+            <p>2. Which planet is known as the Red Planet?</p>
+            <label><input type="radio" name="q2" value="Earth"> Earth</label>
+            <label><input type="radio" name="q2" value="Mars"> Mars</label>
+            <label><input type="radio" name="q2" value="Jupiter"> Jupiter</label>
+        </div>
+
+        <div class="question">
+            <p>3. How many continents are there?</p>
+            <label><input type="radio" name="q3" value="5"> 5</label>
+            <label><input type="radio" name="q3" value="7"> 7</label>
+            <label><input type="radio" name="q3" value="9"> 9</label>
+        </div>
+
+        <input type="submit" value="Submit Quiz">
     </form>
 
     <hr>
 
-    <!-- Display a dynamic list -->
-    <h2>Dynamic List</h2>
-    <ul>
-        <%
-            // Display a dynamic list using a loop
-            for (int i = 1; i <= 5; i++) {
-        %>
-            <li>Item <%= i %></li>
-        <%
+    <%
+        // Process quiz submission
+        if (request.getMethod().equalsIgnoreCase("post")) {
+            int score = 0;
+
+            // Check answers and calculate the score
+            if ("Paris".equals(request.getParameter("q1"))) {
+                score++;
             }
-        %>
-    </ul>
+            if ("Mars".equals(request.getParameter("q2"))) {
+                score++;
+            }
+            if ("7".equals(request.getParameter("q3"))) {
+                score++;
+            }
+
+            // Display the result
+    %>
+            <div class="result">
+                <p>Your Quiz Result:</p>
+                <p>Correct Answers: <%= score %></p>
+                <p>Incorrect Answers: <%= 3 - score %></p>
+            </div>
+    <%
+        }
+    %>
 
 </body>
-</html>
